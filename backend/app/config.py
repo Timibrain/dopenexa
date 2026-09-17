@@ -1,4 +1,4 @@
-from pydantic import model_validator
+from pydantic import field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
@@ -40,6 +40,13 @@ class Settings(BaseSettings):
     payout_reconciliation_after_minutes: int = 30
     refund_reconciliation_after_minutes: int = 30
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+
+    @field_validator("database_url", mode="before")
+    @classmethod
+    def normalize_asyncpg_url(cls, value):
+        if isinstance(value, str) and value.startswith("postgresql://"):
+            return "postgresql+asyncpg://" + value[len("postgresql://"):]
+        return value
 
     @property
     def cors_origin_list(self) -> list[str]:

@@ -6,6 +6,7 @@ from unittest.mock import patch
 
 from app.apns import send_notification
 from app.storage import ExternalObjectStorage, LocalStorage, StorageError
+from app.config import Settings
 
 
 class Phase8ReadinessTests(unittest.IsolatedAsyncioTestCase):
@@ -22,6 +23,12 @@ class Phase8ReadinessTests(unittest.IsolatedAsyncioTestCase):
     def test_external_storage_requires_configuration(self):
         with patch("app.storage.settings.object_storage_bucket", ""), patch("app.storage.settings.object_storage_endpoint", ""):
             with self.assertRaises(StorageError): ExternalObjectStorage()
+
+    def test_postgresql_url_is_normalized_for_asyncpg(self):
+        plain = Settings(database_url="postgresql://user:pass@example.test:5432/db?sslmode=require")
+        asyncpg = Settings(database_url="postgresql+asyncpg://user:pass@example.test:5432/db?sslmode=require")
+        self.assertEqual(plain.database_url, "postgresql+asyncpg://user:pass@example.test:5432/db?sslmode=require")
+        self.assertEqual(asyncpg.database_url, "postgresql+asyncpg://user:pass@example.test:5432/db?sslmode=require")
 
 
 if __name__ == "__main__": unittest.main()
