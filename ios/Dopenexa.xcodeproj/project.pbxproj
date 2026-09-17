@@ -1,0 +1,393 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		02A2A97578065BFE81AF28D4 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44C152DAFE454449756572B /* APIClient.swift */; };
+		0597EC30C2EA5AC499C35AA6 /* RealtimeSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF11DFD672F55ACBB0A4275 /* RealtimeSocket.swift */; };
+		07BDA64326265F1A8CD59091 /* BookingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B52C83E9275D2682E34C54 /* BookingsView.swift */; };
+		0FCD725274C458A5B09E2328 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F1722CF5E4157AAAE6E9576 /* LoginView.swift */; };
+		1BE8585E3672576082C54AFD /* AIWorkspaceViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7150962B615BC58FE0207E /* AIWorkspaceViews.swift */; };
+		268ADFF8A09D59DF910D13AE /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB6DC2B78F25DF8A1340559 /* AppStore.swift */; };
+		311AF39E3DA956F8BE107741 /* ProfessionalAvailabilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5C0566146E5C37B60B69E7 /* ProfessionalAvailabilityView.swift */; };
+		44D9F4E46B0C558FBBA7D152 /* ProfessionalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED71F7FB8E753259244706C /* ProfessionalView.swift */; };
+		4691FB99864556B0A05B28A9 /* BookingFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3583BCEBA7CC56869F7EC9AF /* BookingFlow.swift */; };
+		499258D2B27655559D1DBBE4 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC73E070F035882A38BAF5B /* RootView.swift */; };
+		4EB78C727627584AAA0A55C1 /* CustomerHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1C916FBEF0509A81A3BC8A /* CustomerHomeView.swift */; };
+		666DA890A18D5FB9BF0BF179 /* DiscoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219327D6E1DE5A6A9C734E2C /* DiscoveryView.swift */; };
+		7525BF0ED2D95301944A478F /* ProfessionalDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E996BE78B36575EAFBEA82D /* ProfessionalDashboardView.swift */; };
+		75834CCF089A5ADCA00D1CD1 /* RecommendationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B208FFBAC70C5DEDA5999081 /* RecommendationView.swift */; };
+		7BE9B7B4C9C552D79FB54DDF /* DesignTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B31DE50F2C352C89ECECA9E /* DesignTokens.swift */; };
+		87073289995B5DD0949EFD6B /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DDD2ADEA5C5976A4E0A18A /* ProfileView.swift */; };
+		8818B236C77E54C1833979CD /* DopenexaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939A473C6AEA54418C56FD47 /* DopenexaApp.swift */; };
+		A31BC8DD68695FC8AC9B49A6 /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329363667493509BAF77CADA /* MessagesView.swift */; };
+		A6FE76D98AA15D879508244B /* Sprint4ProjectTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57051181EDA58218ADD7EEF /* Sprint4ProjectTools.swift */; };
+		AC1DFDAF74CE5A019526B50D /* ServiceEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FDD87DA5E05540BE616D97 /* ServiceEditorView.swift */; };
+		AC36FEE4439F51C4824C8D40 /* ProfessionalOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075B8F21BA1F50978D9C10A5 /* ProfessionalOnboardingView.swift */; };
+		AFE3175E182E5F2EA5884F9C /* RealtimeConversationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5BFEAAD4645884AD4149E9 /* RealtimeConversationView.swift */; };
+		C01CA9677B80566BA9FCAA4D /* SavedProfessionalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE7092B04415FCD815CC1FD /* SavedProfessionalsView.swift */; };
+		C70AE75D810D5D3CA121522F /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090EE9655B0B5BE996D6E67C /* Models.swift */; };
+		DBCA979A4915572FB4B149A7 /* ProfessionalTrustView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA426CD54F405CA7B888323C /* ProfessionalTrustView.swift */; };
+		E46671807D5B57EAA7959ABB /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3E524B17055FA897CE5753 /* HomeView.swift */; };
+		FD955B548B6D59529798BD86 /* ProfessionalEarningsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5CAA605AC256BDAAE30D4A /* ProfessionalEarningsView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		075B8F21BA1F50978D9C10A5 /* ProfessionalOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfessionalOnboardingView.swift; sourceTree = "<group>"; };
+		090EE9655B0B5BE996D6E67C /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		0F5BFEAAD4645884AD4149E9 /* RealtimeConversationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeConversationView.swift; sourceTree = "<group>"; };
+		10FDD87DA5E05540BE616D97 /* ServiceEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceEditorView.swift; sourceTree = "<group>"; };
+		14DDD2ADEA5C5976A4E0A18A /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		219327D6E1DE5A6A9C734E2C /* DiscoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryView.swift; sourceTree = "<group>"; };
+		2F1722CF5E4157AAAE6E9576 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		329363667493509BAF77CADA /* MessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
+		3583BCEBA7CC56869F7EC9AF /* BookingFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingFlow.swift; sourceTree = "<group>"; };
+		3A5C0566146E5C37B60B69E7 /* ProfessionalAvailabilityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfessionalAvailabilityView.swift; sourceTree = "<group>"; };
+		4B7150962B615BC58FE0207E /* AIWorkspaceViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIWorkspaceViews.swift; sourceTree = "<group>"; };
+		50B52C83E9275D2682E34C54 /* BookingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingsView.swift; sourceTree = "<group>"; };
+		5AE7092B04415FCD815CC1FD /* SavedProfessionalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedProfessionalsView.swift; sourceTree = "<group>"; };
+		5E996BE78B36575EAFBEA82D /* ProfessionalDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfessionalDashboardView.swift; sourceTree = "<group>"; };
+		780DED21CCFA5E27A9B66AA0 /* Dopenexa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dopenexa.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B31DE50F2C352C89ECECA9E /* DesignTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignTokens.swift; sourceTree = "<group>"; };
+		7C3E524B17055FA897CE5753 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		939A473C6AEA54418C56FD47 /* DopenexaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DopenexaApp.swift; sourceTree = "<group>"; };
+		9DB6DC2B78F25DF8A1340559 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
+		9ED71F7FB8E753259244706C /* ProfessionalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfessionalView.swift; sourceTree = "<group>"; };
+		A10000000000000000000003 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A10000000000000000000004 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A57051181EDA58218ADD7EEF /* Sprint4ProjectTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sprint4ProjectTools.swift; sourceTree = "<group>"; };
+		B208FFBAC70C5DEDA5999081 /* RecommendationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationView.swift; sourceTree = "<group>"; };
+		CA426CD54F405CA7B888323C /* ProfessionalTrustView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfessionalTrustView.swift; sourceTree = "<group>"; };
+		CCC73E070F035882A38BAF5B /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		D44C152DAFE454449756572B /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		DA1C916FBEF0509A81A3BC8A /* CustomerHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerHomeView.swift; sourceTree = "<group>"; };
+		DF5CAA605AC256BDAAE30D4A /* ProfessionalEarningsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfessionalEarningsView.swift; sourceTree = "<group>"; };
+		EEF11DFD672F55ACBB0A4275 /* RealtimeSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeSocket.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		55E2227586B952D382509DCB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3B3557D2280A5109A78AF5CB /* Dopenexa */ = {
+			isa = PBXGroup;
+			children = (
+				A10000000000000000000004 /* Info.plist */,
+				A10000000000000000000003 /* Assets.xcassets */,
+				3E16B8AB03F350DAA4D9B926 /* Core */,
+				4B7150962B615BC58FE0207E /* AIWorkspaceViews.swift */,
+				3583BCEBA7CC56869F7EC9AF /* BookingFlow.swift */,
+				50B52C83E9275D2682E34C54 /* BookingsView.swift */,
+				DA1C916FBEF0509A81A3BC8A /* CustomerHomeView.swift */,
+				219327D6E1DE5A6A9C734E2C /* DiscoveryView.swift */,
+				939A473C6AEA54418C56FD47 /* DopenexaApp.swift */,
+				7C3E524B17055FA897CE5753 /* HomeView.swift */,
+				2F1722CF5E4157AAAE6E9576 /* LoginView.swift */,
+				329363667493509BAF77CADA /* MessagesView.swift */,
+				3A5C0566146E5C37B60B69E7 /* ProfessionalAvailabilityView.swift */,
+				5E996BE78B36575EAFBEA82D /* ProfessionalDashboardView.swift */,
+				DF5CAA605AC256BDAAE30D4A /* ProfessionalEarningsView.swift */,
+				075B8F21BA1F50978D9C10A5 /* ProfessionalOnboardingView.swift */,
+				CA426CD54F405CA7B888323C /* ProfessionalTrustView.swift */,
+				9ED71F7FB8E753259244706C /* ProfessionalView.swift */,
+				14DDD2ADEA5C5976A4E0A18A /* ProfileView.swift */,
+				0F5BFEAAD4645884AD4149E9 /* RealtimeConversationView.swift */,
+				B208FFBAC70C5DEDA5999081 /* RecommendationView.swift */,
+				CCC73E070F035882A38BAF5B /* RootView.swift */,
+				5AE7092B04415FCD815CC1FD /* SavedProfessionalsView.swift */,
+				10FDD87DA5E05540BE616D97 /* ServiceEditorView.swift */,
+				A57051181EDA58218ADD7EEF /* Sprint4ProjectTools.swift */,
+			);
+			path = Dopenexa;
+			sourceTree = "<group>";
+		};
+		3E16B8AB03F350DAA4D9B926 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				D44C152DAFE454449756572B /* APIClient.swift */,
+				9DB6DC2B78F25DF8A1340559 /* AppStore.swift */,
+				7B31DE50F2C352C89ECECA9E /* DesignTokens.swift */,
+				090EE9655B0B5BE996D6E67C /* Models.swift */,
+				EEF11DFD672F55ACBB0A4275 /* RealtimeSocket.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		83FA60597AEC5E0EA097C9E2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				780DED21CCFA5E27A9B66AA0 /* Dopenexa.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		92E24005B6605492A1DA45BB = {
+			isa = PBXGroup;
+			children = (
+				3B3557D2280A5109A78AF5CB /* Dopenexa */,
+				83FA60597AEC5E0EA097C9E2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9FBD159EDFB25EE798F617FF /* Dopenexa */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B087BBD11C7358B79B4AFB88 /* Build configuration list for PBXNativeTarget "Dopenexa" */;
+			buildPhases = (
+				EBFC983B497F5F60A7BB81E2 /* Sources */,
+				A10000000000000000000005 /* Resources */,
+				55E2227586B952D382509DCB /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Dopenexa;
+			productName = Dopenexa;
+			productReference = 780DED21CCFA5E27A9B66AA0 /* Dopenexa.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2CD96239F51E51938C2B3941 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 2630;
+				ORGANIZATIONNAME = Dopenexa;
+				TargetAttributes = {
+					9FBD159EDFB25EE798F617FF = {
+						CreatedOnToolsVersion = 16.0;
+					};
+				};
+			};
+			buildConfigurationList = BCE69A87C3A354B696165965 /* Build configuration list for PBXProject "Dopenexa" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 92E24005B6605492A1DA45BB;
+			productRefGroup = 83FA60597AEC5E0EA097C9E2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9FBD159EDFB25EE798F617FF /* Dopenexa */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A10000000000000000000005 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EBFC983B497F5F60A7BB81E2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1BE8585E3672576082C54AFD /* AIWorkspaceViews.swift in Sources */,
+				4691FB99864556B0A05B28A9 /* BookingFlow.swift in Sources */,
+				07BDA64326265F1A8CD59091 /* BookingsView.swift in Sources */,
+				02A2A97578065BFE81AF28D4 /* APIClient.swift in Sources */,
+				268ADFF8A09D59DF910D13AE /* AppStore.swift in Sources */,
+				7BE9B7B4C9C552D79FB54DDF /* DesignTokens.swift in Sources */,
+				C70AE75D810D5D3CA121522F /* Models.swift in Sources */,
+				0597EC30C2EA5AC499C35AA6 /* RealtimeSocket.swift in Sources */,
+				4EB78C727627584AAA0A55C1 /* CustomerHomeView.swift in Sources */,
+				666DA890A18D5FB9BF0BF179 /* DiscoveryView.swift in Sources */,
+				8818B236C77E54C1833979CD /* DopenexaApp.swift in Sources */,
+				E46671807D5B57EAA7959ABB /* HomeView.swift in Sources */,
+				0FCD725274C458A5B09E2328 /* LoginView.swift in Sources */,
+				A31BC8DD68695FC8AC9B49A6 /* MessagesView.swift in Sources */,
+				311AF39E3DA956F8BE107741 /* ProfessionalAvailabilityView.swift in Sources */,
+				7525BF0ED2D95301944A478F /* ProfessionalDashboardView.swift in Sources */,
+				FD955B548B6D59529798BD86 /* ProfessionalEarningsView.swift in Sources */,
+				AC36FEE4439F51C4824C8D40 /* ProfessionalOnboardingView.swift in Sources */,
+				DBCA979A4915572FB4B149A7 /* ProfessionalTrustView.swift in Sources */,
+				44D9F4E46B0C558FBBA7D152 /* ProfessionalView.swift in Sources */,
+				87073289995B5DD0949EFD6B /* ProfileView.swift in Sources */,
+				AFE3175E182E5F2EA5884F9C /* RealtimeConversationView.swift in Sources */,
+				75834CCF089A5ADCA00D1CD1 /* RecommendationView.swift in Sources */,
+				499258D2B27655559D1DBBE4 /* RootView.swift in Sources */,
+				C01CA9677B80566BA9FCAA4D /* SavedProfessionalsView.swift in Sources */,
+				AC1DFDAF74CE5A019526B50D /* ServiceEditorView.swift in Sources */,
+				A6FE76D98AA15D879508244B /* Sprint4ProjectTools.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		05C199C17FAD59F299DA2DFA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = "";
+				DOPENEXA_API_URL = "http://localhost:8000";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Dopenexa/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dopenexa.app;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		7A9D4245332055B08F1CCD90 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_PREVIEWS = YES;
+				PRODUCT_NAME = Dopenexa;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+			};
+			name = Debug;
+		};
+		CD086A1A069E57B28EFCE1BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				ENABLE_PREVIEWS = YES;
+				PRODUCT_NAME = Dopenexa;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+			};
+			name = Release;
+		};
+		D9C7C0DDB01E51A4B1052EAC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = "";
+				DOPENEXA_API_URL = "http://localhost:8000";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Dopenexa/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dopenexa.app;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B087BBD11C7358B79B4AFB88 /* Build configuration list for PBXNativeTarget "Dopenexa" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A9D4245332055B08F1CCD90 /* Debug */,
+				CD086A1A069E57B28EFCE1BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BCE69A87C3A354B696165965 /* Build configuration list for PBXProject "Dopenexa" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9C7C0DDB01E51A4B1052EAC /* Debug */,
+				05C199C17FAD59F299DA2DFA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2CD96239F51E51938C2B3941 /* Project object */;
+}

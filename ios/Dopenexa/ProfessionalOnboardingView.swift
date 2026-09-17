@@ -1,0 +1,5 @@
+import SwiftUI
+struct ProfessionalOnboardingView:View{ @EnvironmentObject var store:AppStore; @Environment(\.dismiss) private var dismiss; let profile:ProfessionalProfile?; @State private var headline="";@State private var bio="";@State private var years=1;@State private var area="";@State private var saving=false
+ var body:some View{NavigationStack{Form{Section("Positioning"){TextField("Headline",text:$headline);TextField("Service area",text:$area);TextField("Bio",text:$bio,axis:.vertical).lineLimit(4...8)};Section("Experience"){Stepper("Years of experience: \(years)",value:$years,in:0...80)};Section{Button(saving ? "Saving…":"Save profile"){Task{await save()}}.disabled(saving)}}.navigationTitle("Professional profile").toolbar{ToolbarItem(placement:.topBarLeading){Button("Close"){dismiss()}}}.onAppear{headline=profile?.headline ?? "";bio=profile?.bio ?? "";years=profile?.yearsExperience ?? 1;area=profile?.serviceArea ?? ""}}}
+ private func save()async{saving=true;defer{saving=false};do{_ = try await APIClient.shared.saveProfessionalProfile(headline:headline,bio:bio,yearsExperience:years,serviceArea:area.isEmpty ? nil:area);dismiss()}catch{}}
+}

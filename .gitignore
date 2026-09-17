@@ -1,0 +1,50 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+!.env.staging.example
+*.pem
+*.key
+*.p8
+*.p12
+*.mobileprovision
+*.cer
+*credentials*.json
+
+# Python
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*.so
+.pytest_cache/
+
+# Local runtime data
+uploads/
+*.sql.gz
+*.dump
+*.bak
+*.sqlite
+*.sqlite3
+
+# Xcode
+DerivedData/
+**/DerivedData/
+xcuserdata/
+**/xcuserdata/
+*.xcuserstate
+*.moved-aside
+
+# IDE/editor/OS files
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Build output
+build/
+dist/
+node_modules/

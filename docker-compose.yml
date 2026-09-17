@@ -1,0 +1,50 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment:
+      ENVIRONMENT: development
+      POSTGRES_DB: dopenexa
+      POSTGRES_USER: dopenexa
+      POSTGRES_PASSWORD: dopenexa
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/migrations/001_init.sql:/docker-entrypoint-initdb.d/001_init.sql:ro
+      - ./backend/migrations/002_sprint3.sql:/docker-entrypoint-initdb.d/002_sprint3.sql:ro
+      - ./backend/migrations/003_sprint4.sql:/docker-entrypoint-initdb.d/003_sprint4.sql:ro
+      - ./backend/migrations/004_sprint5.sql:/docker-entrypoint-initdb.d/004_sprint5.sql:ro
+      - ./backend/migrations/005_sprint6.sql:/docker-entrypoint-initdb.d/005_sprint6.sql:ro
+      - ./backend/migrations/006_sprint7.sql:/docker-entrypoint-initdb.d/006_sprint7.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dopenexa -d dopenexa"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  api:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql+asyncpg://dopenexa:dopenexa@postgres:5432/dopenexa
+      REDIS_URL: redis://redis:6379/0
+      JWT_SECRET: change-me-in-development
+      PAYMENT_WEBHOOK_SECRET: change-me-in-development
+      ACCESS_TOKEN_MINUTES: "30"
+      REFRESH_TOKEN_DAYS: "30"
+      CORS_ORIGINS: http://localhost:3000,http://localhost:8000
+      LOGGING_LEVEL: INFO
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+volumes:
+  postgres_data:

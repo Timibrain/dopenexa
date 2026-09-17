@@ -1,0 +1,23 @@
+{
+  "name": "Dopenexa MVP",
+  "version": "0.2.0",
+  "vertical_slice": [
+    "auth",
+    "professional discovery",
+    "profiles",
+    "services",
+    "availability",
+    "bookings",
+    "payment session",
+    "messaging",
+    "reviews",
+    "ai semantic matching",
+    "project attachments",
+    "disputes",
+    "payment lifecycle",
+    "review reputation"
+  ],
+  "backend": "FastAPI",
+  "database": "PostgreSQL + PostGIS + pgvector",
+  "mobile": "SwiftUI"
+}

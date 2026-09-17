@@ -1,0 +1,2 @@
+// Set this value in the staging build configuration or CI secret store.
+DOPENEXA_API_URL = https://api-staging.example.com

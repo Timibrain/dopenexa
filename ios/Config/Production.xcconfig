@@ -1,0 +1,2 @@
+// Replace with the approved production HTTPS API hostname before archiving.
+DOPENEXA_API_URL = https://api.example.com

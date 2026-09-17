@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleExecutable</key><string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundlePackageType</key><string>APPL</string>
+	<key>CFBundleDisplayName</key><string>Dopenexa</string>
+	<key>CFBundleName</key><string>Dopenexa</string>
+	<key>CFBundleIdentifier</key><string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleShortVersionString</key><string>$(MARKETING_VERSION)</string>
+	<key>CFBundleVersion</key><string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>UILaunchScreen</key><dict/>
+	<key>UIApplicationSupportsIndirectInputEvents</key><true/>
+	<key>UIUserInterfaceStyle</key><string>Automatic</string>
+	<key>LSApplicationCategoryType</key><string>public.app-category.business</string>
+	<key>NSAppTransportSecurity</key><dict>
+		<key>NSAllowsLocalNetworking</key><true/>
+	</dict>
+	<key>NSLocalNetworkUsageDescription</key><string>Dopenexa connects to your development server on your local network.</string>
+	<key>DopenexaAPIURL</key><string>$(DOPENEXA_API_URL)</string>
+</dict>
+</plist>

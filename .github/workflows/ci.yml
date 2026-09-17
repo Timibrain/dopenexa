@@ -1,0 +1,28 @@
+name: Dopenexa CI
+on: [push, pull_request]
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env: { POSTGRES_DB: dopenexa, POSTGRES_USER: dopenexa, POSTGRES_PASSWORD: dopenexa }
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U dopenexa -d dopenexa"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+      redis:
+        image: redis:7-alpine
+        ports: ["6379:6379"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install -r backend/requirements.txt pytest
+      - run: for f in backend/migrations/*.sql; do PGPASSWORD=dopenexa psql -h localhost -U dopenexa -d dopenexa -f "$f"; done
+      - run: DATABASE_URL=postgresql+asyncpg://dopenexa:dopenexa@localhost:5432/dopenexa REDIS_URL=redis://localhost:6379/0 pytest -q backend/tests
+  ios:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: xcodebuild -project ios/Dopenexa.xcodeproj -scheme Dopenexa -configuration Debug -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build
