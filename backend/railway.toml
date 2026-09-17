@@ -1,0 +1,12 @@
+# Railway service configuration. Set the service Root Directory to /backend.
+# Railway reads this file from the package root when configured as /backend/railway.toml.
+[build]
+builder = "RAILPACK"
+buildCommand = "pip install -r requirements.txt"
+watchPatterns = ["/backend/**"]
+
+[deploy]
+startCommand = "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+healthcheckPath = "/health"
+healthcheckTimeout = 120
+restartPolicyType = "ON_FAILURE"
