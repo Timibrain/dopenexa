@@ -24,6 +24,20 @@ class RequestContextMiddleware(BaseHTTPMiddleware):
         response.headers["X-Request-ID"] = request_id
         return response
 
+class HealthcheckHostMiddleware(BaseHTTPMiddleware):
+    """Allow infrastructure health probes before strict host validation.
+
+    Only the health endpoints are normalized; application routes still pass
+    through TrustedHostMiddleware unchanged.
+    """
+    paths = {"/health", "/ready"}
+    async def dispatch(self, request, call_next):
+        if request.url.path in self.paths and settings.trusted_host_list:
+            headers = [(key, value) for key, value in request.scope["headers"] if key != b"host"]
+            headers.append((b"host", settings.trusted_host_list[0].encode("ascii")))
+            request.scope["headers"] = headers
+        return await call_next(request)
+
 app.add_middleware(RequestContextMiddleware)
 
 class RateLimitMiddleware(BaseHTTPMiddleware):
@@ -46,6 +60,7 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
 app.add_middleware(RateLimitMiddleware)
 if settings.environment != "development":
     app.add_middleware(TrustedHostMiddleware, allowed_hosts=settings.trusted_host_list)
+    app.add_middleware(HealthcheckHostMiddleware)
 
 app.add_middleware(
     CORSMiddleware,
