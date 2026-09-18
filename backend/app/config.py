@@ -30,6 +30,7 @@ class Settings(BaseSettings):
     object_storage_endpoint: str = ""
     object_storage_access_key: str = ""
     object_storage_secret_key: str = ""
+    object_storage_region: str = "auto"
     apns_enabled: bool = False
     apns_team_id: str = ""
     apns_key_id: str = ""

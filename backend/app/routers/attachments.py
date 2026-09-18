@@ -39,6 +39,11 @@ async def download(attachment_id:UUID,user:User=Depends(current_user),db:AsyncSe
     item=await db.scalar(select(ProjectAttachment).where(ProjectAttachment.id==attachment_id));
     if not item: raise HTTPException(404,"Attachment not found")
     await owned(item.booking_id,user,db); path=storage.download_path(item.storage_key)
-    if path is None: raise HTTPException(501,"Signed external download is not configured")
+    if path is None:
+        try:
+            url = await storage.download_url(item.storage_key, expires_seconds=300)
+        except StorageError as exc: raise HTTPException(503, str(exc)) from exc
+        if not url: raise HTTPException(404,"Attachment file missing")
+        return {"id":str(item.id),"filename":item.filename,"mime_type":item.mime_type,"download_url":url,"expires_in":300}
     if not path.exists(): raise HTTPException(404,"Attachment file missing")
     return FileResponse(path,media_type=item.mime_type,filename=item.filename)
