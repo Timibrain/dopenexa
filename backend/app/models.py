@@ -1,6 +1,6 @@
 import uuid
 from datetime import datetime, time
-from sqlalchemy import String, Boolean, DateTime, ForeignKey, Integer, BigInteger, Text, Numeric, Time, Enum, CheckConstraint
+from sqlalchemy import String, Boolean, DateTime, ForeignKey, Integer, BigInteger, Text, Numeric, Time, Enum, CheckConstraint, UniqueConstraint
 from sqlalchemy.dialects.postgresql import UUID, JSONB
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 import enum
@@ -32,14 +32,28 @@ class BookingStatus(str, enum.Enum):
 class User(Base):
     __tablename__ = "users"
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    email: Mapped[str] = mapped_column(String(320), unique=True, index=True)
+    email: Mapped[str | None] = mapped_column(String(320), unique=True, index=True)
     phone: Mapped[str | None] = mapped_column(String(40), unique=True)
-    password_hash: Mapped[str] = mapped_column(Text)
+    password_hash: Mapped[str | None] = mapped_column(Text)
     role: Mapped[Role] = mapped_column(Enum(Role, name="user_role"))
     display_name: Mapped[str] = mapped_column(String(120))
     avatar_url: Mapped[str | None] = mapped_column(Text)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow)
+
+
+class AuthIdentity(Base):
+    """A provider identity linked to exactly one Dopenexa account."""
+
+    __tablename__ = "auth_identities"
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"))
+    provider: Mapped[str] = mapped_column(String(40))
+    provider_subject: Mapped[str] = mapped_column(String(255))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow)
+    __table_args__ = (
+        UniqueConstraint("provider", "provider_subject", name="auth_identities_provider_subject_key"),
+    )
 
 class ProfessionalProfile(Base):
     __tablename__ = "professional_profiles"

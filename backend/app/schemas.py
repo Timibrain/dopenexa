@@ -15,6 +15,12 @@ class TokenOut(BaseModel):
     access_token: str
     refresh_token: str
     token_type: str = "bearer"
+
+
+class AppleAuthIn(BaseModel):
+    identity_token: str = Field(min_length=20, max_length=20000)
+    nonce: str = Field(min_length=16, max_length=256)
+    role: Role | None = None
 class ProfileIn(BaseModel):
     headline: str
     bio: str

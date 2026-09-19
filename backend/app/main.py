@@ -41,7 +41,7 @@ class HealthcheckHostMiddleware(BaseHTTPMiddleware):
 app.add_middleware(RequestContextMiddleware)
 
 class RateLimitMiddleware(BaseHTTPMiddleware):
-    protected = ("/auth/login", "/auth/register", "/payments/create", "/payments/refund", "/payouts", "/admin/reconciliation", "/attachments")
+    protected = ("/auth/login", "/auth/register", "/auth/apple", "/payments/create", "/payments/refund", "/payouts", "/admin/reconciliation", "/attachments")
     async def dispatch(self, request, call_next):
         if not settings.rate_limit_enabled or not any(request.url.path.startswith(path) for path in self.protected):
             return await call_next(request)

@@ -36,6 +36,9 @@ class Settings(BaseSettings):
     apns_key_id: str = ""
     apns_bundle_id: str = ""
     apns_private_key: str = ""
+    apple_client_id: str = ""
+    apple_jwks_url: str = "https://appleid.apple.com/auth/keys"
+    apple_issuer: str = "https://appleid.apple.com"
     minimum_payout_ngn: int = 1000
     payment_reconciliation_after_minutes: int = 30
     payout_reconciliation_after_minutes: int = 30
