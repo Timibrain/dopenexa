@@ -14,7 +14,7 @@ final class RealtimeSocket: NSObject, URLSessionWebSocketDelegate {
 
     func connect(conversationID: String) async {
         guard let token = await APIClient.shared.currentAccessToken() else { return }
-        guard var components = URLComponents(string: UserDefaults.standard.string(forKey: "dopenexa_api_url") ?? "http://localhost:8000") else { return }
+        guard var components = URLComponents(url: DopenexaAPIConfiguration.baseURL, resolvingAgainstBaseURL: false) else { return }
         components.scheme = components.scheme == "https" ? "wss" : "ws"
         components.path = components.path.trimmingCharacters(in: CharacterSet(charactersIn: "/")) + "/realtime/conversations/\(conversationID)"
         guard let url = components.url else { return }

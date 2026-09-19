@@ -1,6 +1,25 @@
 import Foundation
 import Security
 
+enum DopenexaAPIConfiguration {
+    static let defaultBaseURLString = "https://api.dopenexa.com"
+
+    static var baseURL: URL {
+        let configured = Bundle.main.object(forInfoDictionaryKey: "DopenexaAPIURL") as? String
+        let value = configured?.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+        if let value, !value.isEmpty, !value.contains("$("), let url = URL(string: value) {
+            return url
+        }
+
+        if let override = UserDefaults.standard.string(forKey: "dopenexa_api_url"),
+           let url = URL(string: override.trimmingCharacters(in: CharacterSet(charactersIn: "/"))) {
+            return url
+        }
+
+        return URL(string: defaultBaseURLString)!
+    }
+}
+
 enum DopenexaKeychain {
     private static let service = "com.dopenexa.auth"
     static func get(_ key: String) -> String? {
@@ -13,7 +32,10 @@ enum DopenexaKeychain {
         let query:[String:Any] = [kSecClass as String:kSecClassGenericPassword, kSecAttrService as String:service, kSecAttrAccount as String:key]
         SecItemDelete(query as CFDictionary)
         guard let value, let data=value.data(using:.utf8) else { return }
-        var item=query; item[kSecValueData as String]=data; SecItemAdd(item as CFDictionary,nil)
+        var item=query
+        item[kSecValueData as String] = data
+        item[kSecAttrAccessible as String] = kSecAttrAccessibleWhenUnlockedThisDeviceOnly
+        SecItemAdd(item as CFDictionary,nil)
     }
     static func remove(_ key: String) { let query:[String:Any] = [kSecClass as String:kSecClassGenericPassword, kSecAttrService as String:service, kSecAttrAccount as String:key]; SecItemDelete(query as CFDictionary) }
 }
@@ -54,8 +76,7 @@ actor APIClient {
     private let baseURL: URL
     private var accessToken: String?
     private init() {
-        let configured = (Bundle.main.object(forInfoDictionaryKey: "DopenexaAPIURL") as? String) ?? UserDefaults.standard.string(forKey: "dopenexa_api_url") ?? "http://localhost:8000"
-        baseURL = URL(string: configured.trimmingCharacters(in: CharacterSet(charactersIn: "/")))!
+        baseURL = DopenexaAPIConfiguration.baseURL
         accessToken = DopenexaKeychain.get("access_token")
     }
     func setAccessToken(_ token: String?) { accessToken = token; DopenexaKeychain.set(token, for: "access_token") }

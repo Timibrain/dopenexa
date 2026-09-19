@@ -1,1 +1,1 @@
-DOPENEXA_API_URL = http://localhost:8000
+DOPENEXA_API_URL = http:/$()/localhost:8000

@@ -17,6 +17,7 @@
 		<key>NSAllowsLocalNetworking</key><true/>
 	</dict>
 	<key>NSLocalNetworkUsageDescription</key><string>Dopenexa connects to your development server on your local network.</string>
+	<key>NSFaceIDUsageDescription</key><string>Use Face ID to securely unlock your Dopenexa session.</string>
 	<key>DopenexaAPIURL</key><string>$(DOPENEXA_API_URL)</string>
 </dict>
 </plist>

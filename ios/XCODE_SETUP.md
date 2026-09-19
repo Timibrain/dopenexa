@@ -6,8 +6,9 @@
 4. Run the app.
 
 ## Backend
-The app defaults to `http://localhost:8000`. Start the FastAPI backend from the repository root.
-For staging and production, set `DOPENEXA_API_URL` through the corresponding xcconfig in `ios/Config/`. Do not point a production archive at localhost. Development may continue using the local API URL.
+The app's default simulator and Release configurations use `https://api.dopenexa.com`.
+For local development, select `ios/Config/Development.xcconfig` or pass it to `xcodebuild`; it keeps the API at `http://localhost:8000`.
+Staging and production use the corresponding HTTPS API configuration. Do not point a production archive at localhost.
 
 ## Production
 Set a real bundle identifier, Apple Team, HTTPS API URL, APNs configuration, payment-provider credentials, and production AI credentials before release.

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A10000000000000000000011 /* AuthSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000013 /* AuthSession.swift */; };
+		A10000000000000000000012 /* EntryViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000014 /* EntryViews.swift */; };
 		02A2A97578065BFE81AF28D4 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44C152DAFE454449756572B /* APIClient.swift */; };
 		0597EC30C2EA5AC499C35AA6 /* RealtimeSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF11DFD672F55ACBB0A4275 /* RealtimeSocket.swift */; };
 		07BDA64326265F1A8CD59091 /* BookingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B52C83E9275D2682E34C54 /* BookingsView.swift */; };
@@ -37,6 +39,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A10000000000000000000013 /* AuthSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSession.swift; sourceTree = "<group>"; };
+		A10000000000000000000014 /* EntryViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryViews.swift; sourceTree = "<group>"; };
 		075B8F21BA1F50978D9C10A5 /* ProfessionalOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfessionalOnboardingView.swift; sourceTree = "<group>"; };
 		090EE9655B0B5BE996D6E67C /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		0F5BFEAAD4645884AD4149E9 /* RealtimeConversationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeConversationView.swift; sourceTree = "<group>"; };
@@ -59,6 +63,9 @@
 		9ED71F7FB8E753259244706C /* ProfessionalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfessionalView.swift; sourceTree = "<group>"; };
 		A10000000000000000000003 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A10000000000000000000004 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A10000000000000000000006 /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
+		A10000000000000000000007 /* Staging.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Staging.xcconfig; sourceTree = "<group>"; };
+		A10000000000000000000008 /* Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Production.xcconfig; sourceTree = "<group>"; };
 		A57051181EDA58218ADD7EEF /* Sprint4ProjectTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sprint4ProjectTools.swift; sourceTree = "<group>"; };
 		B208FFBAC70C5DEDA5999081 /* RecommendationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationView.swift; sourceTree = "<group>"; };
 		CA426CD54F405CA7B888323C /* ProfessionalTrustView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfessionalTrustView.swift; sourceTree = "<group>"; };
@@ -85,6 +92,7 @@
 			children = (
 				A10000000000000000000004 /* Info.plist */,
 				A10000000000000000000003 /* Assets.xcassets */,
+				A10000000000000000000014 /* EntryViews.swift */,
 				3E16B8AB03F350DAA4D9B926 /* Core */,
 				4B7150962B615BC58FE0207E /* AIWorkspaceViews.swift */,
 				3583BCEBA7CC56869F7EC9AF /* BookingFlow.swift */,
@@ -116,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				D44C152DAFE454449756572B /* APIClient.swift */,
+				A10000000000000000000013 /* AuthSession.swift */,
 				9DB6DC2B78F25DF8A1340559 /* AppStore.swift */,
 				7B31DE50F2C352C89ECECA9E /* DesignTokens.swift */,
 				090EE9655B0B5BE996D6E67C /* Models.swift */,
@@ -132,9 +141,20 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		A10000000000000000000010 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				A10000000000000000000006 /* Development.xcconfig */,
+				A10000000000000000000007 /* Staging.xcconfig */,
+				A10000000000000000000008 /* Production.xcconfig */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
 		92E24005B6605492A1DA45BB = {
 			isa = PBXGroup;
 			children = (
+				A10000000000000000000010 /* Config */,
 				3B3557D2280A5109A78AF5CB /* Dopenexa */,
 				83FA60597AEC5E0EA097C9E2 /* Products */,
 			);
@@ -208,6 +228,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A10000000000000000000011 /* AuthSession.swift in Sources */,
+				A10000000000000000000012 /* EntryViews.swift in Sources */,
 				1BE8585E3672576082C54AFD /* AIWorkspaceViews.swift in Sources */,
 				4691FB99864556B0A05B28A9 /* BookingFlow.swift in Sources */,
 				07BDA64326265F1A8CD59091 /* BookingsView.swift in Sources */,
@@ -243,6 +265,7 @@
 /* Begin XCBuildConfiguration section */
 		05C199C17FAD59F299DA2DFA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A10000000000000000000008 /* Production.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -268,7 +291,6 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
-				DOPENEXA_API_URL = "http://localhost:8000";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -317,6 +339,7 @@
 		};
 		D9C7C0DDB01E51A4B1052EAC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A10000000000000000000007 /* Staging.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -342,7 +365,6 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
-				DOPENEXA_API_URL = "http://localhost:8000";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;

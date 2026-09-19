@@ -4,15 +4,14 @@ SwiftUI source for Sprint 1.5.
 
 ## Configure API
 
-The app defaults to `http://localhost:8000`. For a physical iPhone, use the Mac's LAN IP or a staging HTTPS URL.
+The app's default Debug/Release configurations use `https://api.dopenexa.com`. Local development remains available through `Config/Development.xcconfig`.
 
-At runtime you can set:
+For a local build, pass the development xcconfig to `xcodebuild` (or select it in Xcode):
 
-```swift
-UserDefaults.standard.set("http://192.168.1.20:8000", forKey: "dopenexa_api_url")
+```bash
+xcodebuild -project Dopenexa.xcodeproj -scheme Dopenexa -configuration Debug \
+  -xcconfig Config/Development.xcconfig -sdk iphonesimulator build
 ```
-
-before `APIClient.shared` is first initialized.
 
 ## Build
 
