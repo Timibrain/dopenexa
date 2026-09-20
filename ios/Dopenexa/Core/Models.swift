@@ -42,7 +42,7 @@ struct Conversation: Codable, Identifiable { let id: String; let bookingID: Stri
 struct APIMessage: Codable, Identifiable { let id: String; let senderID: String; let body: String; let createdAt: Date; enum CodingKeys: String, CodingKey { case id; case senderID = "sender_id"; case body; case createdAt = "created_at" } }
 struct TokenResponse: Codable { let accessToken: String; let refreshToken: String; enum CodingKeys: String, CodingKey { case accessToken = "access_token"; case refreshToken = "refresh_token" } }
 
-struct CurrentUser: Codable { let id: String; let email: String; let displayName: String; let role: String
+struct CurrentUser: Codable { let id: String; let email: String?; let displayName: String; let role: String
     enum CodingKeys: String, CodingKey { case id,email; case displayName="display_name"; case role }
 }
 struct ProfessionalProfile: Codable { let id:String; let name:String; let headline:String?; let bio:String?; let yearsExperience:Int?; let serviceArea:String?; let verificationStatus:String; let averageRating:Double; let reviewCount:Int; let completedJobs:Int; let onboardingComplete:Bool

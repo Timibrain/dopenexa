@@ -79,13 +79,14 @@ struct AuthenticationView: View {
                 if showEmail {
                     EmailAuthenticationForm(role: role)
                 } else {
-                    AppleSignInUnavailableButton()
+                    AppleSignInButton(role: role)
                     Button("Continue with Email") { withAnimation { showEmail = true } }.buttonStyle(DopenexaPrimaryButtonStyle())
                     if isRegistration { Text("By continuing, you agree to use Dopenexa responsibly and keep your account details secure.").font(DopenexaFont.label(11)).foregroundStyle(DopenexaColor.muted) }
                 }
                 Spacer()
                 if !isRegistration { Button("New to Dopenexa? Create an account") { store.destination = .roleSelection }.frame(maxWidth: .infinity).font(DopenexaFont.label()).foregroundStyle(DopenexaColor.brand) }
             }.padding(24).background(DopenexaColor.surface.ignoresSafeArea()).navigationBarHidden(true)
+            .disabled(store.isLoading || store.appleAuthorizationPending)
         }
     }
 }
@@ -105,7 +106,7 @@ private struct EmailAuthenticationForm: View {
             Button(store.isLoading ? "Connecting…" : (role == nil ? "Sign in with Email" : "Create account")) {
                 Task { if let role { await store.register(email: email, password: password, name: name, role: role) } else { await store.login(email: email, password: password) } }
             }.buttonStyle(DopenexaPrimaryButtonStyle()).disabled(store.isLoading || email.isEmpty || password.isEmpty || (role != nil && name.isEmpty))
-            AppleSignInUnavailableButton()
+            AppleSignInButton(role: role)
         }
     }
 }
@@ -127,12 +128,25 @@ struct FaceIDWelcomeView: View {
     }
 }
 
-private struct AppleSignInUnavailableButton: View {
+private struct AppleSignInButton: View {
+    @EnvironmentObject private var store: AppStore
+    let role: String?
+
     var body: some View {
         VStack(spacing: 7) {
-            SignInWithAppleButton(.continue) { _ in } onCompletion: { _ in }
-                .signInWithAppleButtonStyle(.black).frame(height: 52).clipShape(RoundedRectangle(cornerRadius: 15)).disabled(true)
-            Text("Apple sign in will be available after secure backend identity verification is enabled.").font(DopenexaFont.label(10)).foregroundStyle(DopenexaColor.muted).multilineTextAlignment(.center)
+            SignInWithAppleButton(.continue, onRequest: { request in
+                request.requestedScopes = [.fullName, .email]
+                request.nonce = store.beginAppleAuthorization()
+            }, onCompletion: { result in
+                Task { await store.completeAppleAuthorization(result, role: role) }
+            })
+            .signInWithAppleButtonStyle(.black)
+            .frame(height: 52)
+            .disabled(store.isLoading || store.appleAuthorizationPending)
+            .clipShape(RoundedRectangle(cornerRadius: 15))
+            if let error = store.error {
+                Text(error).font(DopenexaFont.label(12)).foregroundStyle(.red).multilineTextAlignment(.center)
+            }
         }
     }
 }

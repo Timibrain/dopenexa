@@ -84,6 +84,11 @@ actor APIClient {
     func hasStoredSession() -> Bool { DopenexaKeychain.get("access_token") != nil || DopenexaKeychain.get("refresh_token") != nil }
     func register(email: String, password: String, name: String, role: String = "customer") async throws -> TokenResponse { try await send("auth/register", method:"POST", body:["email":email,"password":password,"display_name":name,"role":role], response:TokenResponse.self) }
     func login(email: String, password: String) async throws -> TokenResponse { try await send("auth/login", method:"POST", body:["email":email,"password":password], response:TokenResponse.self) }
+    func signInWithApple(identityToken: String, nonce: String, role: String?) async throws -> TokenResponse {
+        var body: [String: Any] = ["identity_token": identityToken, "nonce": nonce]
+        if let role { body["role"] = role }
+        return try await send("auth/apple", method: "POST", body: body, response: TokenResponse.self, allowRefresh: false)
+    }
     func professional(id: String) async throws -> ProfessionalDetail { try await request("professionals/\(id)", response:ProfessionalDetail.self) }
     func createBooking(professionalID: String, serviceID: String, startsAt: Date, endsAt: Date?, note: String?) async throws -> BookingCreated {
         let formatter = ISO8601DateFormatter(); formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
@@ -119,6 +124,16 @@ actor APIClient {
         if http.statusCode == 401 && allowRefresh && !path.hasPrefix("auth/refresh"), DopenexaKeychain.get("refresh_token") != nil {
             _ = try? await refreshSession()
             if accessToken != nil { return try await send(path, method: method, body: body, response: response, allowRefresh: false) }
+        }
+        if path == "auth/apple", !(200..<300 ~= http.statusCode) {
+            let message: String
+            switch http.statusCode {
+            case 400, 401: message = "Apple sign-in could not be verified. Please try again."
+            case 409: message = "This email belongs to an existing account. Please sign in with email."
+            case 422: message = "To create an Apple account, choose customer or professional from Create an account."
+            default: message = "Apple sign-in is temporarily unavailable. Please try again later."
+            }
+            throw APIError.server(message)
         }
         guard 200..<300 ~= http.statusCode else { throw APIError.server(String(data:data,encoding:.utf8) ?? "HTTP \(http.statusCode)") }
         return try JSONDecoder.dopenexa.decode(T.self, from:data)

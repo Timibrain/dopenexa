@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import AuthenticationServices
 
 @MainActor final class AppStore: ObservableObject {
     @Published var professionals: [Professional] = []
@@ -17,6 +18,8 @@ import SwiftUI
 
     private let authentication = AuthenticationService()
     private var hasStarted = false
+    private var appleRawNonce: String?
+    @Published private(set) var appleAuthorizationPending = false
 
     var isAuthenticated: Bool { currentUser != nil }
 
@@ -40,6 +43,47 @@ import SwiftUI
 
     func login(email: String, password: String) async { await authenticate { try await authentication.login(email: email, password: password) } }
     func register(email: String, password: String, name: String, role: String = "customer") async { await authenticate { try await authentication.register(email: email, password: password, name: name, role: role) } }
+
+    func beginAppleAuthorization() -> String? {
+        guard !appleAuthorizationPending, !isLoading else { return nil }
+        error = nil
+        do {
+            let rawNonce = try AppleNonce.generate()
+            appleRawNonce = rawNonce
+            appleAuthorizationPending = true
+            return AppleNonce.hash(rawNonce)
+        } catch {
+            self.error = error.localizedDescription
+            appleRawNonce = nil
+            return nil
+        }
+    }
+
+    func completeAppleAuthorization(_ result: Result<ASAuthorization, Error>, role: String?) async {
+        guard appleAuthorizationPending else { return }
+        appleAuthorizationPending = false
+        let rawNonce = appleRawNonce
+        appleRawNonce = nil
+        guard let rawNonce else { error = "Apple sign-in expired. Please try again."; return }
+        switch result {
+        case .failure(let failure):
+            if let authorizationError = failure as? ASAuthorizationError,
+               authorizationError.code == .canceled {
+                error = nil
+            } else {
+                error = "Apple sign-in could not be completed. Please try again or use email."
+            }
+        case .success(let authorization):
+            guard let credential = authorization.credential as? ASAuthorizationAppleIDCredential,
+                  let tokenData = credential.identityToken,
+                  let identityToken = String(data: tokenData, encoding: .utf8),
+                  !identityToken.isEmpty else {
+                error = "Apple did not return a valid identity token. Please try again."
+                return
+            }
+            await authenticate { try await authentication.signInWithApple(identityToken: identityToken, rawNonce: rawNonce, role: role) }
+        }
+    }
 
     private func authenticate(_ call: () async throws -> TokenResponse) async {
         isLoading = true; error = nil
