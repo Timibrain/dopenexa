@@ -9,9 +9,16 @@ from ..schemas import ProfileIn
 
 router = APIRouter()
 
-@router.get("")
-async def search(q: str | None = None, verified: bool = False, min_rating: float = 0, max_price_ngn: int | None = None, service_type: str | None = None, db: AsyncSession = Depends(get_db)):
+def build_search_query(
+    q: str | None = None,
+    verified: bool = False,
+    min_rating: float = 0,
+    max_price_ngn: int | None = None,
+    service_type: str | None = None,
+):
+    """Build the marketplace query, limited to discoverable professionals."""
     stmt = select(ProfessionalProfile, User).join(User, User.id == ProfessionalProfile.user_id)
+    stmt = stmt.where(User.is_active.is_(True), ProfessionalProfile.onboarding_complete.is_(True))
     if q:
         like = f"%{q}%"
         stmt = stmt.where(or_(ProfessionalProfile.headline.ilike(like), ProfessionalProfile.bio.ilike(like), User.display_name.ilike(like), ProfessionalProfile.service_area.ilike(like)))
@@ -23,6 +30,11 @@ async def search(q: str | None = None, verified: bool = False, min_rating: float
         stmt = stmt.join(Service, Service.professional_id == ProfessionalProfile.id).where(Service.is_active.is_(True), Service.price_ngn <= max_price_ngn).distinct()
     if service_type:
         stmt = stmt.join(Service, Service.professional_id == ProfessionalProfile.id).where(Service.is_active.is_(True), Service.service_type == service_type).distinct()
+    return stmt
+
+@router.get("")
+async def search(q: str | None = None, verified: bool = False, min_rating: float = 0, max_price_ngn: int | None = None, service_type: str | None = None, db: AsyncSession = Depends(get_db)):
+    stmt = build_search_query(q, verified, min_rating, max_price_ngn, service_type)
     rows = (await db.execute(stmt)).all()
     results = [{
         "id": str(p.id), "name": u.display_name, "headline": p.headline,
