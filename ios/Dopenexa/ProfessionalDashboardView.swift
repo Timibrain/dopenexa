@@ -8,6 +8,9 @@ struct ProfessionalDashboardView: View {
     @State private var services:[Service] = []
     @State private var showOnboarding = false
     @State private var showServiceEditor = false
+    @State private var showProfile = false
+    @State private var showSettings = false
+    @State private var showLogoutConfirmation = false
     @State private var error:String?
     var body: some View {
         NavigationStack {
@@ -21,9 +24,26 @@ struct ProfessionalDashboardView: View {
             }
             .background(DopenexaColor.surface.ignoresSafeArea())
             .navigationTitle("Workspace")
-            .toolbar { ToolbarItem(placement:.topBarTrailing) { HStack { NavigationLink { ProfessionalEarningsView() } label:{ Image(systemName:"nairasign.circle") }; Button { showOnboarding=true } label:{ Image(systemName:"slider.horizontal.3") } } } }
+            .toolbar { ToolbarItem(placement:.topBarTrailing) { HStack {
+                NavigationLink { ProfessionalEarningsView() } label:{ Image(systemName:"nairasign.circle") }
+                Button { showOnboarding=true } label:{ Image(systemName:"slider.horizontal.3") }
+                Menu {
+                    Button("Profile") { showProfile = true }
+                    Button("Settings") { showSettings = true }
+                    Divider()
+                    Button("Log out", role: .destructive) { showLogoutConfirmation = true }
+                } label: {
+                    Label("Account", systemImage: "person.circle")
+                }
+            } } }
             .sheet(isPresented:$showOnboarding) { ProfessionalOnboardingView(profile:profile).environmentObject(store) }
             .sheet(isPresented:$showServiceEditor) { ServiceEditorView().environmentObject(store) }
+            .sheet(isPresented:$showProfile) { ProfileView().environmentObject(store) }
+            .sheet(isPresented:$showSettings) { ProfessionalSettingsView().environmentObject(store) }
+            .confirmationDialog("Log out of Dopenexa?", isPresented: $showLogoutConfirmation, titleVisibility: .visible) {
+                Button("Log Out", role: .destructive) { store.logout() }
+                Button("Cancel", role: .cancel) {}
+            }
             .task { await load() }
             .alert("Something went wrong", isPresented: Binding(get:{error != nil},set:{if !$0{error=nil}})) { Button("OK",role:.cancel){} } message:{ Text(error ?? "") }
         }
@@ -42,4 +62,26 @@ struct ProfessionalDashboardView: View {
     }
 }
 private struct Metric:View{let title:String;let value:String;let icon:String;var body:some View{VStack(alignment:.leading,spacing:8){Image(systemName:icon).foregroundStyle(DopenexaColor.brand);Text(value).font(DopenexaFont.title(19));Text(title).font(DopenexaFont.label()).foregroundStyle(DopenexaColor.muted)}.frame(maxWidth:.infinity,alignment:.leading).dopenexaCard(radius:18)}}
+private struct ProfessionalSettingsView: View {
+    @EnvironmentObject private var store: AppStore
+
+    var body: some View {
+        NavigationStack {
+            List {
+                Section("Account") {
+                    NavigationLink("Profile") { ProfileView().environmentObject(store) }
+                    Text(store.currentUser?.displayName ?? "Dopenexa professional")
+                        .foregroundStyle(DopenexaColor.muted)
+                }
+                Section("Security") {
+                    Label("Session protected by Keychain", systemImage: "lock.shield")
+                    if store.faceIDEnabled {
+                        Label("Face ID enabled", systemImage: "faceid")
+                    }
+                }
+            }
+            .navigationTitle("Settings")
+        }
+    }
+}
 private struct RequestCard:View{let request:ProfessionalRequest;let action:(String)->Void;var body:some View{VStack(alignment:.leading,spacing:12){HStack{DopenexaPill(text:"New request",icon:"sparkle");Spacer();Text("₦\(request.totalNGN.formatted())").font(DopenexaFont.title(17))};Text(request.startsAt.formatted(date:.abbreviated,time:.shortened)).font(DopenexaFont.body().weight(.semibold));if let note=request.customerNote,!note.isEmpty{Text(note).font(DopenexaFont.body()).foregroundStyle(DopenexaColor.muted)};HStack{Button("Decline"){action("decline")}.buttonStyle(.bordered);Button("Accept"){action("confirm")}.buttonStyle(DopenexaPrimaryButtonStyle())}}.dopenexaCard(radius:20)}}
