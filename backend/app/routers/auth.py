@@ -1,13 +1,15 @@
 from datetime import datetime, timedelta, timezone
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.exc import IntegrityError
-from pydantic import BaseModel
-from sqlalchemy import select
+from pydantic import BaseModel, Field
+from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 from ..db import get_db
 from ..models import AuthIdentity, User, RefreshSession, Role
 from ..deps import current_user
 from ..schemas import AppleAuthIn, RegisterIn, LoginIn, TokenOut
+from redis.exceptions import RedisError
+from ..google_auth import GoogleAuthError, create_google_challenge, verify_google_identity
 from ..apple_auth import AppleAuthError, verify_apple_identity
 from ..security import hash_password, verify_password, access_token, refresh_token, decode_token, token_hash
 from ..config import settings
@@ -89,6 +91,63 @@ async def apple_login(data: AppleAuthIn, db: AsyncSession = Depends(get_db)):
         user = await db.scalar(select(User).where(User.id == identity.user_id, User.is_active.is_(True)))
         if not user:
             raise HTTPException(401, "Apple account is inactive")
+        result = issue_tokens(user, db)
+        await db.commit()
+    return result
+
+class GoogleAuthIn(BaseModel):
+    credential: str = Field(min_length=1, max_length=16384)
+    challenge: str = Field(min_length=40, max_length=64)
+
+
+@router.get("/google/config")
+async def google_config():
+    return {"enabled": bool(settings.google_client_id), "client_id": settings.google_client_id}
+
+
+@router.post("/google/challenge")
+async def google_challenge():
+    try:
+        return await create_google_challenge()
+    except (GoogleAuthError, RedisError) as exc:
+        raise HTTPException(503, "Google sign-in is temporarily unavailable") from exc
+
+
+@router.post("/google", response_model=TokenOut)
+async def google_login(data: GoogleAuthIn, db: AsyncSession = Depends(get_db)):
+    try:
+        claims = await verify_google_identity(data.credential, data.challenge)
+    except GoogleAuthError as exc:
+        raise HTTPException(401, str(exc)) from exc
+    except RedisError as exc:
+        raise HTTPException(503, "Google sign-in is temporarily unavailable") from exc
+    identity_query = select(AuthIdentity).where(AuthIdentity.provider == "google", AuthIdentity.provider_subject == claims["sub"])
+    identity = await db.scalar(identity_query)
+    if identity:
+        user = await db.scalar(select(User).where(User.id == identity.user_id, User.is_active.is_(True)))
+        if not user:
+            raise HTTPException(401, "This Dopenexa account is inactive")
+        result = issue_tokens(user, db)
+        await db.commit()
+        return result
+    if await db.scalar(select(User).where(func.lower(User.email) == claims["email"].lower())):
+        raise HTTPException(409, "This email already has a Dopenexa account. Please sign in using your existing method.")
+    user = User(email=claims["email"], password_hash=None,
+        display_name=(claims.get("name") or claims["email"].split("@", 1)[0])[:120], role=Role.customer)
+    try:
+        db.add(user)
+        await db.flush()
+        db.add(AuthIdentity(user_id=user.id, provider="google", provider_subject=claims["sub"]))
+        result = issue_tokens(user, db)
+        await db.commit()
+    except IntegrityError:
+        await db.rollback()
+        identity = await db.scalar(identity_query)
+        if not identity:
+            raise HTTPException(409, "This email already has a Dopenexa account. Please sign in using your existing method.")
+        user = await db.scalar(select(User).where(User.id == identity.user_id, User.is_active.is_(True)))
+        if not user:
+            raise HTTPException(401, "This Dopenexa account is inactive")
         result = issue_tokens(user, db)
         await db.commit()
     return result
