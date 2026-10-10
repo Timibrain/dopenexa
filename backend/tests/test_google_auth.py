@@ -47,10 +47,10 @@ class GoogleVerifierTests(unittest.IsolatedAsyncioTestCase):
 
 
 class GoogleEndpointTests(unittest.IsolatedAsyncioTestCase):
-    async def call(self, values):
+    async def call(self, values, role="customer"):
         self.db = fixtures.FakeSession(values)
         with patch('app.routers.auth.verify_google_identity', new=AsyncMock(return_value={'sub': 'google-sub', 'email': 'member@gmail.com', 'name': 'Member'})):
-            return await google_login(GoogleAuthIn(credential='credential', challenge='c' * 43), self.db)
+            return await google_login(GoogleAuthIn(credential='credential', challenge='c' * 43, role=role), self.db)
 
     async def test_new_account_is_customer(self):
         result = await self.call([None, None])
@@ -59,6 +59,15 @@ class GoogleEndpointTests(unittest.IsolatedAsyncioTestCase):
         self.assertIsNone(user.password_hash)
         self.assertTrue(result.access_token)
         self.assertTrue(any(isinstance(x, AuthIdentity) and x.provider == 'google' for x in self.db.added))
+
+    async def test_professional_and_explicit_choice(self):
+        await self.call([None, None], role="professional")
+        user = next(x for x in self.db.added if isinstance(x, User))
+        self.assertEqual(user.role, Role.professional)
+        with self.assertRaises(HTTPException) as caught:
+            await self.call([None, None], role=None)
+        self.assertEqual(caught.exception.status_code, 422)
+        self.assertEqual(self.db.commits, 0)
 
     async def test_preserves_professional_role(self):
         user = User(id=uuid.uuid4(), role=Role.professional)

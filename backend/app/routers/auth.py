@@ -1,3 +1,4 @@
+from typing import Literal
 from datetime import datetime, timedelta, timezone
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.exc import IntegrityError
@@ -96,6 +97,7 @@ async def apple_login(data: AppleAuthIn, db: AsyncSession = Depends(get_db)):
     return result
 
 class GoogleAuthIn(BaseModel):
+    role: Literal["customer", "professional"] | None = None
     credential: str = Field(min_length=1, max_length=16384)
     challenge: str = Field(min_length=40, max_length=64)
 
@@ -132,8 +134,10 @@ async def google_login(data: GoogleAuthIn, db: AsyncSession = Depends(get_db)):
         return result
     if await db.scalar(select(User).where(func.lower(User.email) == claims["email"].lower())):
         raise HTTPException(409, "This email already has a Dopenexa account. Please sign in using your existing method.")
+    if data.role is None:
+        raise HTTPException(422, "Choose customer or professional on the Join Dopenexa page to create your account.")
     user = User(email=claims["email"], password_hash=None,
-        display_name=(claims.get("name") or claims["email"].split("@", 1)[0])[:120], role=Role.customer)
+        display_name=(claims.get("name") or claims["email"].split("@", 1)[0])[:120], role=Role(data.role))
     try:
         db.add(user)
         await db.flush()
